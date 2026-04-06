@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TODO & スケジュール</title>
+  <title>TODOリスト</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -11,57 +11,31 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: #f0f2f5;
       min-height: 100vh;
-    }
-
-    /* ── タブナビ ── */
-    .tabs {
       display: flex;
       justify-content: center;
-      gap: 0;
-      background: white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      padding: 40px 16px;
     }
 
-    .tab-btn {
-      flex: 1;
-      max-width: 200px;
-      padding: 16px;
-      border: none;
-      background: none;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #aaa;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      transition: all 0.2s;
-    }
+    .container { width: 100%; max-width: 560px; }
 
-    .tab-btn.active {
-      color: #6c63ff;
-      border-bottom-color: #6c63ff;
-    }
-
-    /* ── ページ ── */
-    .page { display: none; padding: 32px 16px; }
-    .page.active { display: block; }
-
-    /* ════════════════════
-       TODO
-    ════════════════════ */
-    .todo-wrap {
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    .page-title {
+    h1 {
       text-align: center;
       color: #1a1a2e;
-      font-size: 1.8rem;
-      margin-bottom: 24px;
+      font-size: 2rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
     }
+
+    .nav-link {
+      display: block;
+      text-align: center;
+      color: #6c63ff;
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+      text-decoration: none;
+    }
+
+    .nav-link:hover { text-decoration: underline; }
 
     .input-area {
       display: flex;
@@ -82,7 +56,7 @@
 
     .input-area input:focus { border-color: #6c63ff; }
 
-    .btn-primary {
+    .input-area button {
       padding: 12px 20px;
       background: #6c63ff;
       color: white;
@@ -94,7 +68,7 @@
       transition: background 0.2s;
     }
 
-    .btn-primary:hover { background: #574fd6; }
+    .input-area button:hover { background: #574fd6; }
 
     .filters {
       display: flex;
@@ -206,209 +180,16 @@
     .clear-btn:hover { background: #fff0f0; }
 
     .empty { text-align: center; color: #bbb; padding: 40px 0; font-size: 0.95rem; }
-
-    /* ════════════════════
-       SCHEDULE
-    ════════════════════ */
-    .schedule-wrap {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .layout {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .calendar-card {
-      flex: 1;
-      min-width: 280px;
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      align-self: start;
-    }
-
-    .cal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-
-    .cal-nav {
-      background: none;
-      border: none;
-      font-size: 1.3rem;
-      cursor: pointer;
-      color: #6c63ff;
-      padding: 4px 10px;
-      border-radius: 8px;
-      transition: background 0.2s;
-    }
-
-    .cal-nav:hover { background: #f0eeff; }
-
-    .cal-title { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; }
-
-    .cal-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 3px;
-    }
-
-    .cal-dow {
-      text-align: center;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #888;
-      padding: 4px 0;
-    }
-
-    .cal-dow:first-child { color: #e05c5c; }
-    .cal-dow:last-child  { color: #5c8be0; }
-
-    .cal-day {
-      aspect-ratio: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 0.82rem;
-      color: #333;
-      position: relative;
-      transition: background 0.15s;
-    }
-
-    .cal-day:hover { background: #f0eeff; }
-    .cal-day.other-month { color: #ccc; }
-    .cal-day.today { background: #f0eeff; font-weight: 700; color: #6c63ff; }
-    .cal-day.selected { background: #6c63ff !important; color: white !important; }
-
-    .dot {
-      width: 5px;
-      height: 5px;
-      background: #6c63ff;
-      border-radius: 50%;
-      position: absolute;
-      bottom: 3px;
-    }
-
-    .cal-day.selected .dot { background: white; }
-
-    .right-panel {
-      flex: 1;
-      min-width: 280px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .form-card, .events-card {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .card-title { font-size: 1rem; font-weight: 700; color: #1a1a2e; margin-bottom: 14px; }
-
-    .form-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
-
-    .form-row label { font-size: 0.78rem; color: #888; font-weight: 600; }
-
-    .form-row input,
-    .form-row textarea {
-      padding: 10px 12px;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      outline: none;
-      font-family: inherit;
-      transition: border-color 0.2s;
-    }
-
-    .form-row input:focus,
-    .form-row textarea:focus { border-color: #6c63ff; }
-
-    .form-row textarea { resize: none; height: 56px; }
-
-    .color-row { display: flex; gap: 8px; margin-bottom: 12px; }
-
-    .color-chip {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 3px solid transparent;
-      transition: border-color 0.15s;
-    }
-
-    .color-chip.selected { border-color: #333; }
-
-    .event-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f0f0f0;
-      animation: fadeIn 0.2s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateX(-6px); }
-      to   { opacity: 1; transform: translateX(0); }
-    }
-
-    .event-item:last-child { border-bottom: none; }
-
-    .event-bar {
-      width: 4px;
-      min-height: 36px;
-      border-radius: 4px;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .event-body { flex: 1; }
-    .event-title { font-size: 0.9rem; font-weight: 600; color: #1a1a2e; margin-bottom: 2px; }
-    .event-time  { font-size: 0.78rem; color: #aaa; }
-    .event-note  { font-size: 0.8rem; color: #888; margin-top: 2px; }
-
-    .event-del {
-      background: none;
-      border: none;
-      color: #ccc;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: color 0.2s;
-    }
-
-    .event-del:hover { color: #ff5c5c; }
-
-    .empty-msg { text-align: center; color: #ccc; padding: 24px 0; font-size: 0.9rem; }
   </style>
 </head>
 <body>
-
-<!-- タブ -->
-<nav class="tabs">
-  <button class="tab-btn active" onclick="switchTab('todo', this)">📝 TODOリスト</button>
-  <button class="tab-btn" onclick="switchTab('schedule', this)">📅 スケジュール</button>
-</nav>
-
-<!-- ══ TODO ══ -->
-<div id="page-todo" class="page active">
-  <div class="todo-wrap">
-    <h1 class="page-title">TODOリスト</h1>
+  <div class="container">
+    <h1>TODOリスト</h1>
+    <a class="nav-link" href="schedule.html">📅 スケジュール管理へ →</a>
 
     <div class="input-area">
       <input type="text" id="todoInput" placeholder="新しいタスクを入力..." />
-      <button class="btn-primary" onclick="addTodo()">追加</button>
+      <button onclick="addTodo()">追加</button>
     </div>
 
     <div class="filters">
@@ -421,265 +202,77 @@
     <div class="todo-list" id="todoList"></div>
     <button class="clear-btn" onclick="clearDone()">完了済みを削除</button>
   </div>
-</div>
 
-<!-- ══ SCHEDULE ══ -->
-<div id="page-schedule" class="page">
-  <div class="schedule-wrap">
-    <h1 class="page-title">スケジュール管理</h1>
-    <div class="layout">
+  <script>
+    let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+    let filter = 'all';
 
-      <!-- カレンダー -->
-      <div class="calendar-card">
-        <div class="cal-header">
-          <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
-          <span class="cal-title" id="calTitle"></span>
-          <button class="cal-nav" onclick="changeMonth(1)">›</button>
-        </div>
-        <div class="cal-grid" id="calGrid"></div>
-      </div>
+    function save() { localStorage.setItem('todos', JSON.stringify(todos)); }
 
-      <!-- 右パネル -->
-      <div class="right-panel">
-        <div class="form-card">
-          <div class="card-title">予定を追加</div>
-          <div class="form-row">
-            <label>タイトル</label>
-            <input type="text" id="evTitle" placeholder="例：会議、誕生日" />
-          </div>
-          <div class="form-row">
-            <label>日付</label>
-            <input type="date" id="evDate" />
-          </div>
-          <div class="form-row">
-            <label>時間（任意）</label>
-            <input type="time" id="evTime" />
-          </div>
-          <div class="form-row">
-            <label>メモ（任意）</label>
-            <textarea id="evNote" placeholder="詳細を入力..."></textarea>
-          </div>
-          <div class="form-row">
-            <label>カラー</label>
-            <div class="color-row" id="colorRow"></div>
-          </div>
-          <button class="btn-primary" style="width:100%" onclick="addEvent()">追加する</button>
-        </div>
+    function render() {
+      const list  = document.getElementById('todoList');
+      const stats = document.getElementById('stats');
+      const total = todos.length;
+      const done  = todos.filter(t => t.done).length;
+      stats.textContent = total === 0 ? '' : `${done} / ${total} 件完了`;
 
-        <div class="events-card">
-          <div class="card-title" id="listTitle">選択した日の予定</div>
-          <div id="eventList"></div>
-        </div>
-      </div>
+      const filtered = todos.filter(t => {
+        if (filter === 'active') return !t.done;
+        if (filter === 'done')   return t.done;
+        return true;
+      });
 
-    </div>
-  </div>
-</div>
+      if (filtered.length === 0) {
+        list.innerHTML = '<div class="empty">タスクがありません</div>';
+        return;
+      }
 
-<script>
-  // ── タブ切り替え ──
-  function switchTab(name, btn) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('page-' + name).classList.add('active');
-    btn.classList.add('active');
-  }
+      list.innerHTML = filtered.map(t => {
+        const i = todos.indexOf(t);
+        return `
+          <div class="todo-item ${t.done ? 'done' : ''}">
+            <div class="todo-checkbox" onclick="toggle(${i})"></div>
+            <span class="todo-text">${esc(t.text)}</span>
+            <button class="delete-btn" onclick="remove(${i})">✕</button>
+          </div>`;
+      }).join('');
+    }
 
-  /* ════════════════════
-     TODO
-  ════════════════════ */
-  let todos = JSON.parse(localStorage.getItem('todos') || '[]');
-  let filter = 'all';
+    function esc(s) {
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
 
-  function saveTodos() { localStorage.setItem('todos', JSON.stringify(todos)); }
+    function addTodo() {
+      const input = document.getElementById('todoInput');
+      const text  = input.value.trim();
+      if (!text) return;
+      todos.unshift({ text, done: false });
+      input.value = '';
+      save();
+      render();
+    }
 
-  function renderTodos() {
-    const list  = document.getElementById('todoList');
-    const stats = document.getElementById('stats');
-    const total = todos.length;
-    const done  = todos.filter(t => t.done).length;
-    stats.textContent = total === 0 ? '' : `${done} / ${total} 件完了`;
+    function toggle(i) { todos[i].done = !todos[i].done; save(); render(); }
+    function remove(i) { todos.splice(i, 1); save(); render(); }
 
-    const filtered = todos.filter(t => {
-      if (filter === 'active') return !t.done;
-      if (filter === 'done')   return t.done;
-      return true;
+    function setFilter(f, btn) {
+      filter = f;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    }
+
+    function clearDone() {
+      todos = todos.filter(t => !t.done);
+      save();
+      render();
+    }
+
+    document.getElementById('todoInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') addTodo();
     });
 
-    if (filtered.length === 0) {
-      list.innerHTML = '<div class="empty">タスクがありません</div>';
-      return;
-    }
-
-    list.innerHTML = filtered.map(t => {
-      const i = todos.indexOf(t);
-      return `
-        <div class="todo-item ${t.done ? 'done' : ''}">
-          <div class="todo-checkbox" onclick="toggleTodo(${i})"></div>
-          <span class="todo-text">${esc(t.text)}</span>
-          <button class="delete-btn" onclick="removeTodo(${i})">✕</button>
-        </div>`;
-    }).join('');
-  }
-
-  function addTodo() {
-    const input = document.getElementById('todoInput');
-    const text  = input.value.trim();
-    if (!text) return;
-    todos.unshift({ text, done: false });
-    input.value = '';
-    saveTodos();
-    renderTodos();
-  }
-
-  function toggleTodo(i) { todos[i].done = !todos[i].done; saveTodos(); renderTodos(); }
-  function removeTodo(i) { todos.splice(i, 1); saveTodos(); renderTodos(); }
-
-  function setFilter(f, btn) {
-    filter = f;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderTodos();
-  }
-
-  function clearDone() {
-    todos = todos.filter(t => !t.done);
-    saveTodos();
-    renderTodos();
-  }
-
-  document.getElementById('todoInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') addTodo();
-  });
-
-  /* ════════════════════
-     SCHEDULE
-  ════════════════════ */
-  const COLORS = ['#6c63ff','#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#f97316'];
-  let selectedColor = COLORS[0];
-  let scheduleEvents = JSON.parse(localStorage.getItem('scheduleEvents') || '[]');
-  const todayObj  = new Date();
-  let viewYear    = todayObj.getFullYear();
-  let viewMonth   = todayObj.getMonth();
-  let selectedDate = toDateStr(todayObj);
-
-  function toDateStr(d) {
-    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-  }
-
-  function saveEvents() { localStorage.setItem('scheduleEvents', JSON.stringify(scheduleEvents)); }
-
-  function buildColorRow() {
-    document.getElementById('colorRow').innerHTML = COLORS.map(c =>
-      `<div class="color-chip ${c===selectedColor?'selected':''}"
-            style="background:${c}"
-            onclick="selectColor('${c}')"></div>`
-    ).join('');
-  }
-
-  function selectColor(c) { selectedColor = c; buildColorRow(); }
-
-  function buildCalendar() {
-    document.getElementById('calTitle').textContent = `${viewYear}年 ${viewMonth+1}月`;
-    const todayStr = toDateStr(todayObj);
-    const first    = new Date(viewYear, viewMonth, 1).getDay();
-    const days     = new Date(viewYear, viewMonth+1, 0).getDate();
-    const prevDays = new Date(viewYear, viewMonth, 0).getDate();
-
-    let html = ['日','月','火','水','木','金','土'].map(d => `<div class="cal-dow">${d}</div>`).join('');
-
-    for (let i = 0; i < first; i++) {
-      const d    = prevDays - first + 1 + i;
-      const dStr = `${viewYear}-${String(viewMonth).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-      html += `<div class="cal-day other-month" onclick="selectDate('${dStr}')">${d}</div>`;
-    }
-
-    for (let d = 1; d <= days; d++) {
-      const dStr = `${viewYear}-${String(viewMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-      const cls  = [
-        dStr === todayStr    ? 'today'    : '',
-        dStr === selectedDate? 'selected' : ''
-      ].filter(Boolean).join(' ');
-      const hasDot = scheduleEvents.some(e => e.date === dStr);
-      html += `<div class="cal-day ${cls}" onclick="selectDate('${dStr}')">${d}${hasDot?'<span class="dot"></span>':''}</div>`;
-    }
-
-    document.getElementById('calGrid').innerHTML = html;
-  }
-
-  function changeMonth(dir) {
-    viewMonth += dir;
-    if (viewMonth < 0)  { viewMonth = 11; viewYear--; }
-    if (viewMonth > 11) { viewMonth = 0;  viewYear++; }
-    buildCalendar();
-  }
-
-  function selectDate(dStr) {
-    selectedDate = dStr;
-    document.getElementById('evDate').value = dStr;
-    buildCalendar();
-    renderEvents();
-  }
-
-  function addEvent() {
-    const title = document.getElementById('evTitle').value.trim();
-    const date  = document.getElementById('evDate').value;
-    if (!title || !date) { alert('タイトルと日付は必須です'); return; }
-
-    scheduleEvents.push({
-      id: Date.now(), title, date,
-      time:  document.getElementById('evTime').value,
-      note:  document.getElementById('evNote').value.trim(),
-      color: selectedColor
-    });
-    scheduleEvents.sort((a,b) => (a.date+a.time) < (b.date+b.time) ? -1 : 1);
-    saveEvents();
-
-    document.getElementById('evTitle').value = '';
-    document.getElementById('evTime').value  = '';
-    document.getElementById('evNote').value  = '';
-
-    buildCalendar();
-    renderEvents();
-  }
-
-  function deleteEvent(id) {
-    scheduleEvents = scheduleEvents.filter(e => e.id !== id);
-    saveEvents();
-    buildCalendar();
-    renderEvents();
-  }
-
-  function renderEvents() {
-    const [,m,d] = selectedDate.split('-');
-    document.getElementById('listTitle').textContent = `${parseInt(m)}月${parseInt(d)}日の予定`;
-    const dayEvents = scheduleEvents.filter(e => e.date === selectedDate);
-
-    document.getElementById('eventList').innerHTML = dayEvents.length === 0
-      ? '<div class="empty-msg">予定はありません</div>'
-      : dayEvents.map(e => `
-          <div class="event-item">
-            <div class="event-bar" style="background:${e.color}"></div>
-            <div class="event-body">
-              <div class="event-title">${esc(e.title)}</div>
-              <div class="event-time">${e.time || '終日'}</div>
-              ${e.note ? `<div class="event-note">${esc(e.note)}</div>` : ''}
-            </div>
-            <button class="event-del" onclick="deleteEvent(${e.id})">✕</button>
-          </div>`
-        ).join('');
-  }
-
-  function esc(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  // 初期化
-  document.getElementById('evDate').value = selectedDate;
-  buildColorRow();
-  buildCalendar();
-  renderEvents();
-  renderTodos();
-</script>
+    render();
+  </script>
 </body>
 </html>
