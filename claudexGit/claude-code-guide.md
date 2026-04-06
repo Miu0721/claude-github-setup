@@ -7,16 +7,15 @@
 ## 目次
 
 1. [概要](#1-概要)
-2. [インストール](#2-インストール)
-3. [基本的な使い方](#3-基本的な使い方)
-4. [スラッシュコマンド一覧](#4-スラッシュコマンド一覧)
-5. [キーボードショートカット](#5-キーボードショートカット)
-6. [パーミッションモード](#6-パーミッションモード)
-7. [MCP サーバー](#7-mcp-サーバー)
-8. [ホック（自動化）](#8-ホック自動化)
-9. [IDE 統合](#9-ide-統合)
-10. [CLAUDE.md（プロジェクト設定）](#10-claudemdプロジェクト設定)
-11. [ベストプラクティス](#11-ベストプラクティス)
+2. [基本的な使い方](#2-基本的な使い方)
+3. [スラッシュコマンド一覧](#3-スラッシュコマンド一覧)
+4. [キーボードショートカット](#4-キーボードショートカット)
+5. [パーミッションモード](#5-パーミッションモード)
+6. [MCP サーバー](#6-mcp-サーバー)
+7. [ホック（自動化）](#7-ホック自動化)
+8. [IDE 統合](#8-ide-統合)
+9. [CLAUDE.md（プロジェクト設定）](#9-claudemdプロジェクト設定)
+10. [ベストプラクティス](#10-ベストプラクティス)
 ---
 
 ## 1. 概要
@@ -42,49 +41,7 @@
 
 ---
 
-## 2. インストール
-
-### macOS / Linux
-
-```bash
-curl -fsSL https://claude.ai/install.sh | bash
-```
-
-Homebrew を使用する場合：
-
-```bash
-brew install --cask claude-code
-```
-
-### Windows
-
-```powershell
-# PowerShell
-irm https://claude.ai/install.ps1 | iex
-```
-
-```powershell
-# WinGet
-winget install Anthropic.ClaudeCode
-```
-
-### 認証
-
-インストール後、初回実行時に自動でログイン画面が表示されます。
-手動でログインする場合：
-
-```bash
-claude auth login
-```
-
-対応アカウント：
-- Claude Pro / Max / Team / Enterprise
-- Claude Console（API 利用）
-- Amazon Bedrock / Google Vertex AI / Microsoft Foundry
-
----
-
-## 3. 基本的な使い方
+## 2. 基本的な使い方
 
 ### インタラクティブモード
 
@@ -117,7 +74,7 @@ claude -p "クエリ" --output-format json
 
 ---
 
-## 4. スラッシュコマンド一覧
+## 3. スラッシュコマンド一覧
 
 セッション中に `/` から始まるコマンドを入力することで実行できます。
 
@@ -162,7 +119,7 @@ claude -p "クエリ" --output-format json
 
 ---
 
-## 5. キーボードショートカット
+## 4. キーボードショートカット
 
 ### グローバル
 
@@ -207,7 +164,7 @@ claude -p "クエリ" --output-format json
 
 ---
 
-## 6. パーミッションモード
+## 5. パーミッションモード
 
 Claude Code が実行できる操作の範囲を制御します。`Shift+Tab` でセッション中に切り替えられます。
 
@@ -246,7 +203,7 @@ claude --permission-mode plan
 
 ---
 
-## 7. MCP サーバー
+## 6. MCP サーバー
 
 Model Context Protocol（MCP）を使って、外部ツールやサービスと連携できます。
 
@@ -298,7 +255,7 @@ claude mcp add --transport http github https://api.githubcopilot.com/mcp/
 
 ---
 
-## 8. ホック（自動化）
+## 7. ホック（自動化）
 
 ホックは Claude Code のライフサイクル内で自動実行されるスクリプトです。
 
@@ -368,7 +325,7 @@ claude mcp add --transport http github https://api.githubcopilot.com/mcp/
 
 ---
 
-## 9. IDE 統合
+## 8. IDE 統合
 
 ### VS Code
 
@@ -411,7 +368,7 @@ claude
 
 ---
 
-## 10. CLAUDE.md（プロジェクト設定）
+## 9. CLAUDE.md（プロジェクト設定）
 
 `.claude/CLAUDE.md` にプロジェクト固有の指示を記述することで、Claude Code の動作をカスタマイズできます。
 
@@ -446,7 +403,7 @@ git commit -m "Add Claude Code project instructions"
 
 ---
 
-## 11. ベストプラクティス
+## 10. ベストプラクティス
 
 ### 具体的なプロンプトを書く
 
